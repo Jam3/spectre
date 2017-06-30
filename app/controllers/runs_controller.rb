@@ -25,4 +25,14 @@ class RunsController < ApplicationController
     @run = suite.runs.create
     render :json => @run.to_json
   end
+
+  def rerun
+    project = Project.find_by_slug!(params[:project_slug])
+    suite = project.suites.find_by_slug!(params[:suite_slug])
+    @run = suite.runs.find_by_sequential_id!(params[:run_sequential_id])
+    @run.tests.each do |test|
+      ScreenshotComparison.new(test, test.screenshot)
+    end
+    redirect_to suite.url
+  end
 end

@@ -20,4 +20,8 @@ class Suite < ActiveRecord::Base
   def purge_old_runs
     self.runs.order(id: :desc).offset(5).destroy_all
   end
+
+  def url
+    Rails.application.routes.url_helpers.project_suite_path(self.project, self)
+  end
 end
