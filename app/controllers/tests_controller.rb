@@ -23,6 +23,13 @@ class TestsController < ApplicationController
     render json: @test.to_json
   end
 
+  def rerun
+    @test = Test.find(params[:test_id])
+    ScreenshotComparison.new(@test, @test.screenshot)
+    @test.save
+    redirect_to @test.url
+  end
+
   private
 
   def test_params
