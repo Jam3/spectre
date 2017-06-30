@@ -9,7 +9,9 @@
   <li>#<%= @run.sequential_id %></li>
 </ul>
 
-<h1>Run #<%= @run.sequential_id %> <span class="text-muted">(<%= @run.suite.name %>)</span></h1>
+<h1>Run #<%= @run.sequential_id %> <span class="text-muted">(<%= @run.suite.name %>)</span> <%=
+link_to 'Rerun', project_suite_run_url(@run.suite.project, @run.suite, @run) + '/rerun', method: 'POST'
+%></h1>
 
 <%= render 'shared/test_filters', test_filters: @test_filters %>
 

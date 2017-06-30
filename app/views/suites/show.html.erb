@@ -17,6 +17,7 @@
       <th>Run</th>
       <th>Date</th>
       <th>Result</th>
+      <th>Experimental: it's slow and blocking</th>
     </tr>
   </thead>
   <tbody>
@@ -35,6 +36,7 @@
             <a class="label label--fail" href="<%= project_suite_run_path(run.suite.project, run.suite, run, params: { status: 'fail' }) %>"><%= run.failing_tests %> failed</a>
           <% end %>
         </td>
+        <td><%= link_to 'Rerun with the latest baseline images', project_suite_run_path(run.suite.project, run.suite, run) + '/rerun', method: 'POST' %></td>
       </tr>
     <% end %>
   </tbody>
