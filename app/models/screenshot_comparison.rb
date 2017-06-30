@@ -4,14 +4,26 @@ require 'image_geometry'
 class ScreenshotComparison
   attr_reader :pass
 
-  def initialize(test, screenshot)
-    determine_baseline_image(test, screenshot)
-    image_paths = temp_screenshot_paths(test)
-    compare_result = compare_images(test, image_paths)
-    @pass = determine_pass(test, image_paths, compare_result)
-    test.pass = @pass
-    save_screenshots(test, image_paths)
-    remove_temp_files(image_paths)
+  def initialize(test, screenshot, async = false)
+    if async
+      fork do
+        determine_baseline_image(test, screenshot)
+        image_paths = temp_screenshot_paths(test)
+        compare_result = compare_images(test, image_paths)
+        @pass = determine_pass(test, image_paths, compare_result)
+        test.pass = @pass
+        save_screenshots(test, image_paths)
+        remove_temp_files(image_paths)
+      end
+    else
+      determine_baseline_image(test, screenshot)
+      image_paths = temp_screenshot_paths(test)
+      compare_result = compare_images(test, image_paths)
+      @pass = determine_pass(test, image_paths, compare_result)
+      test.pass = @pass
+      save_screenshots(test, image_paths)
+      remove_temp_files(image_paths)
+    end
   end
 
   private

@@ -54,15 +54,15 @@ class Test < ActiveRecord::Base
   end
 
   def screenshot_thumbnail
-    Thumbnail.new(screenshot, "#{key}_test_#{id}_screenshot")
+    Thumbnail.new(screenshot, "#{key}_test_#{id}_#{rerun}_screenshot")
   end
 
   def screenshot_baseline_thumbnail
-    Thumbnail.new(screenshot_baseline, "#{key}_test_#{id}screenshot_baseline")
+    Thumbnail.new(screenshot_baseline, "#{key}_test_#{id}_#{rerun}_screenshot_baseline")
   end
 
   def screenshot_diff_thumbnail
-    Thumbnail.new(screenshot_diff, "#{key}_test_#{id}screenshot_diff")
+    Thumbnail.new(screenshot_diff, "#{key}_test_#{id}_#{rerun}_screenshot_diff")
   end
 
   def five_consecutive_failures
@@ -78,6 +78,7 @@ class Test < ActiveRecord::Base
     self.pass ||= false
     self.fuzz_level = '30%' if self.fuzz_level.blank?
     self.highlight_colour = 'ff0000' if self.highlight_colour.blank?
+    self.rerun ||= 0
   end
 
   def update_baseline

@@ -25,6 +25,7 @@ class TestsController < ApplicationController
 
   def rerun
     @test = Test.find(params[:test_id])
+    @test.rerun += 1
     ScreenshotComparison.new(@test, @test.screenshot)
     redirect_to @test.url
   end

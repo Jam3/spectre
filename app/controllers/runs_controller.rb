@@ -31,7 +31,8 @@ class RunsController < ApplicationController
     suite = project.suites.find_by_slug!(params[:suite_slug])
     @run = suite.runs.find_by_sequential_id!(params[:run_sequential_id])
     @run.tests.each do |test|
-      ScreenshotComparison.new(test, test.screenshot)
+      test.rerun += 1
+      ScreenshotComparison.new(test, test.screenshot, true)
     end
     redirect_to suite.url
   end
