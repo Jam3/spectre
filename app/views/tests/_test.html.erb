@@ -6,6 +6,9 @@
         <%= test.browser %>, <%= test.size %>
       </small>
     </p>
+    <p>
+      <%= button_to 'Rerun the test', "#{project_suite_run_test_path(test.run.suite.project, test.run.suite, test.run, test)}/rerun" %>
+    </p>
   </th>
   <td style="width:1px;"><%= link_to(thumbnail(test.screenshot_baseline_thumbnail), test.screenshot_baseline.url, class: 'test__image') unless test.screenshot_baseline.nil? %></td>
   <td style="width:1px;"><%= link_to(thumbnail(test.screenshot_thumbnail), test.screenshot.url, class: 'test__image') unless test.screenshot.nil? %></td>

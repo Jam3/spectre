@@ -5,7 +5,13 @@ Rails.application.routes.draw do
 
   resources :projects, param: :slug, only: [:index] do
     resources :suites, param: :slug, only: [:show] do
-      resources :runs, param: :sequential_id, only: [:show]
+      resources :runs, param: :sequential_id, only: [:show] do
+        resources :tests, param: :id, only: [:update, :new, :create] do
+          post 'rerun' do
+            :rerun
+          end
+        end
+      end
     end
   end
 
