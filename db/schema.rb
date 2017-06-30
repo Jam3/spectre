@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20170410114210) do
     t.string   "fuzz_level"
     t.string   "highlight_colour"
     t.string   "crop_area"
+    t.integer  "rerun"
   end
 
   add_index "tests", ["run_id"], name: "index_tests_on_run_id", using: :btree
